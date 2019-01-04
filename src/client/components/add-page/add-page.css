@@ -1,5 +1,14 @@
-
-.weather-city-name {
-    padding: 0px 0px 0px 13px;
+.form-buttons {
+    display: block;
 }
 
+.add-photo {
+    margin: 10px 10px 10px 0px;
+    color: #1360db;
+    border: 1px solid #1360db;
+}
+
+.add-photo:hover {
+    color: #1360db;
+    border: 1px solid #1360db;
+}

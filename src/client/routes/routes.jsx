@@ -3,8 +3,9 @@ import { Switch, Route } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import { PAGES } from './pages';
 import App from '../components/app/app';
-import EditPage from '../components/edit-page/edit-page';
+import HomePage from '../components/home-page/home-page';
 import AddPage from '../components/add-page/add-page';
+import EditPage from '../components/edit-page/edit-page';
 import Page404 from '../components/page404/page404';
 
 const WrappedApp = (Component, props) => (
@@ -16,12 +17,16 @@ const WrappedApp = (Component, props) => (
 export default () => (
   <Switch>
     <Route
-      exact path={ PAGES.edit.path }
-      render={ props => WrappedApp(EditPage, props) }
+      exact path={ PAGES.home.path }
+      render={ props => WrappedApp(HomePage, props) }
     />
     <Route
       exact path={ PAGES.add.path }
       render={ props => WrappedApp(AddPage, props) }
+    />
+    <Route
+      exact path={ PAGES.edit.path }
+      render={ props => WrappedApp(EditPage, props) }
     />
     <Route
       exact path={ PAGES.page404.path }

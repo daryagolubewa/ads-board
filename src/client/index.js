@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import createBrowserHistory from 'history/createBrowserHistory';
+import { ConnectedRouter } from 'connected-react-router';
 import { Provider } from 'react-redux';
 import reducers from './redux/reducers';
 import Routes from './routes/routes';
-import { loadState, saveState } from './localStorage'
+import { loadState, saveState } from './localStorage';
 
 const history = createBrowserHistory();
 const persistedState = loadState();
@@ -25,8 +26,7 @@ const Index = () => (
 );
 
 store.subscribe(() => {
-  saveState(store.getState())
+  saveState(store.getState());
 });
 
 ReactDOM.render(<Index store={store}/>, document.getElementById('react-app'));
-

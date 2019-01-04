@@ -39,6 +39,14 @@ module.exports = {
         }
       },
       {
+        test: /\.css$/,
+        use: [
+          'style-loader', // creates style nodes from JS strings
+          { loader: 'css-loader', options: { importLoaders: 1 } }, // translates CSS into CommonJS
+          'postcss-loader' // post CSS transform
+        ]
+      },
+      {
         test: /\.(png|jpg|gif|woff|woff2|eot|ttf|otf|svg)$/,
         use: [
           {

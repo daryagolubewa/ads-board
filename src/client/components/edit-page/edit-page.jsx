@@ -13,9 +13,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class EditPage extends Component {
-
   render() {
-
     return (
       <div className="row">
 

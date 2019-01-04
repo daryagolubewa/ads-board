@@ -1,0 +1,28 @@
+.ads-list {
+    display: block;
+}
+
+.edit-button {
+    color: #1360db;
+    border: 1px solid #1360db;
+    margin: 10px 10px 10px 0px;
+}
+
+.edit-button:hover {
+    color: #1360db;
+    border: 1px solid #1360db;
+}
+
+.edit-link {
+    text-decoration: none;
+}
+
+.delete-button {
+    color: #ef2121;
+    border: 1px solid #ef2121;
+}
+
+.delete-button:hover {
+    color: #ef2121;
+    border: 1px solid #ef2121;
+}
