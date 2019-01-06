@@ -2,6 +2,10 @@
     display: block;
 }
 
+.add-button {
+    margin: 15px 0px 0px 0px
+}
+
 .edit-button {
     color: #1360db;
     border: 1px solid #1360db;
@@ -25,4 +29,17 @@
 .delete-button:hover {
     color: #ef2121;
     border: 1px solid #ef2121;
+}
+
+.item {
+    margin: 0px 0px 15px 0px
+}
+
+.item-name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.item-text {
+    color: #919396;
 }

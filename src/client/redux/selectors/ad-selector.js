@@ -1,1 +1,1 @@
-export const selectGetAd = state => (state.ad.ad);
+export const selectGetAd = state => (state.ad);

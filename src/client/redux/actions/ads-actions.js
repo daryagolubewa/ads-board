@@ -1,27 +1,29 @@
 import { v4 } from 'node-uuid';
 
-export const addAd = (name, text, phone, city, image) => ({
-  type: 'ADD_AD',
-  name,
-  text,
-  phone,
-  city,
-  image,
-  id: v4()
+export const ADS_TYPES = {
+  ADD_AD: 'ADD_AD',
+  EDIT_AD: 'EDIT_AD',
+  REMOVE_AD: 'REMOVE_AD'
+};
+
+export const addAd = adInfo => ({
+  type: ADS_TYPES.ADD_AD,
+  payload: {
+    ...adInfo, id: v4()
+  }
 });
 
 
-export const editAd = (name, text, phone, city, image, id) => ({
-  type: 'EDIT_AD',
-  name,
-  text,
-  phone,
-  city,
-  image,
-  id
+export const editAd = editInfo => ({
+  type: ADS_TYPES.EDIT_AD,
+  payload: {
+    editInfo
+  }
 });
 
 export const removeAd = id => ({
   type: 'REMOVE_AD',
-  id
+  payload: {
+   id
+  }
 });
