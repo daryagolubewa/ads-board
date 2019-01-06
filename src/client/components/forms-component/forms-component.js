@@ -4,31 +4,23 @@ import {
   Grid, Row, Col, FormGroup, FormControl, ControlLabel, Button
 } from 'react-bootstrap';
 import { editAd, addAd } from '../../redux/actions/ads-actions';
-import { selectGetAd } from '../../redux/selectors/ad-selector';
-import './edit-page.css';
+import './forms-component.css';
 
 const mapStateToProps = (state, match) => ({
-  ...state.ad.find(ad => {
-    return match.match.params.id === ad.id.toString();
-  })
+  ...state.ad.find(ad => match.match.params.id === ad.id.toString())
 });
 
-// const mapStateToProps = (state, match) => ({
-//   ...state.expenses.find(expense => {
-//       return match.match.params.id === expense.id.toString()
-//     }
-//   )
-// })
-
 const mapDispatchToProps = dispatch => ({
+  addNewAd: adInfo => dispatch(addAd(adInfo)),
   editAd: editedInfo => dispatch(editAd(editedInfo))
 });
 
-class EditPage extends Component {
+
+class FormsComponent extends Component {
   render() {
     let name; let text; let phone; let city;
-    const { editAd } = this.props;
-
+    const { addNewAd, editAd, newAd } = this.props;
+    console.log(newAd);
     return (
       <div className='row'>
         <Grid>
@@ -41,15 +33,24 @@ class EditPage extends Component {
                     || !city.value.trim()) {
                     return;
                   }
-
-                  const editedInfo = {
-                    name: name.value,
-                    text: text.value,
-                    phone: phone.value,
-                    city: city.value,
-                    id: this.props.match.params.id
-                  };
-                  editAd(editedInfo);
+                  if (newAd) {
+                    const newAdInfo = {
+                      name: name.value,
+                      text: text.value,
+                      phone: phone.value,
+                      city: city.value
+                    };
+                    addNewAd(newAdInfo);
+                  } else {
+                    const editedInfo = {
+                      name: name.value,
+                      text: text.value,
+                      phone: phone.value,
+                      city: city.value,
+                      id: this.props.match.params.id
+                    };
+                    editAd(editedInfo);
+                  }
                   this.props.history.push('/');
                   name.value = '';
                   text.value = '';
@@ -58,15 +59,17 @@ class EditPage extends Component {
                 }}>
                 <FormGroup>
                   <ControlLabel>Заголовок</ControlLabel>
-                  <FormControl type='text' inputRef={node => name = node} defaultValue={this.props.name}/>
+                  <FormControl type='text' inputRef={node => name = node} defaultValue={newAd ? '' : this.props.name} required/>
                 </FormGroup>
                 <FormGroup controlId='formControlsTextarea'>
                   <ControlLabel>Текст объявления</ControlLabel>
-                  <FormControl componentClass='textarea' type='textarea' inputRef={node => text = node} placeholder='' defaultValue={this.props.text}/>
+                  <FormControl componentClass='textarea' type='textarea' inputRef={node => text = node}
+                               defaultValue={newAd ? '' : this.props.text} placeholder='' />
                 </FormGroup>
                 <FormGroup>
                   <ControlLabel>Номер телефона</ControlLabel>
-                  <FormControl type='number' inputRef={node => phone = node} placeholder='+7(___)___-__-__' defaultValue={this.props.phone}/>
+                  <FormControl type='number' inputRef={node => phone = node} defaultValue={newAd ? '' : this.props.phone}
+                               placeholder='+7(___)___-__-__' required/>
                 </FormGroup>
                 <FormGroup controlId='formControlsSelect'>
                   <ControlLabel>Выбрать город</ControlLabel>
@@ -76,7 +79,7 @@ class EditPage extends Component {
                   </FormControl>
                 </FormGroup>
                 <Button className='form-buttons add-photo'>Прикрепить фото</Button>
-                <Button bsStyle='primary' className='form-buttons add-ad' type='submit'>Сохранить</Button>
+                <Button bsStyle='primary' className='form-buttons add-ad' type='submit'>{ newAd ? 'Подать' : 'Сохранить' }</Button>
               </form>
             </Col>
           </Row>
@@ -86,8 +89,8 @@ class EditPage extends Component {
   }
 }
 
-const EditAdPage = connect(
+const AddEditComponent = connect(
   mapStateToProps,
   mapDispatchToProps
-)(EditPage);
-export default EditAdPage;
+)(FormsComponent);
+export default AddEditComponent;
