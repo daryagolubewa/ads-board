@@ -36,7 +36,6 @@ class App extends Component {
               <Col xs={6} md={6}>
                   <div className='ads-list item-name'>{ad.name}</div>
                   <div className='ads-list item-text'>{ad.text}</div>
-                  <div>ad.image}</div>
             </Col>
             <Col xs={6} md={6} className='ads-list item'>
               <div>{ad.phone}</div>
