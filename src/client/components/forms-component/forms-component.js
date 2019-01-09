@@ -40,12 +40,11 @@ class FormsComponent extends Component {
 
   getPhoneValidation = () => {
     const phoneNumber = this.state.phoneValue;
-    console.log(phoneNumber);
     const phoneFieldLength = this.state.phoneValue.length;
     if (phoneFieldLength === 0) return 'neutral';
     const re = /^\+7[\(]\d{3}[\)]\d{3}[-]\d{2}[-]\d{2}$/;
     const validNumber = re.test(phoneNumber);
-    console.log(validNumber);
+
     if (validNumber) {
       return 'success';
     }
@@ -57,10 +56,22 @@ class FormsComponent extends Component {
     if (cityFieldLength > 0) return 'success';
   };
 
+  allFieldsValid = () => {
+    const textValResult = this.getTextValidation();
+    const nameValResult = this.getHeaderValidation();
+    const phoneValResult = this.getPhoneValidation();
+    console.log('results', textValResult, nameValResult, phoneValResult);
+    if (textValResult === 'success' && nameValResult === 'success' && phoneValResult === 'success') {
+      return true;
+    }
+    return false;
+  };
+
   render() {
     let name; let text; let phone; let city;
     const { addNewAd, editAd, newAd } = this.props;
     console.log(this.state);
+    console.log('lala,', this.allFieldsValid());
     return (
       <div className='row'>
         <Grid>
@@ -196,9 +207,11 @@ class FormsComponent extends Component {
               </Row>
               <Row>
                 <Col xs={6} md={5}>
-                <Button className='form-buttons add-photo'>Прикрепить фото</Button>
                 <Button bsStyle='primary' className='form-buttons add-ad'
-                        type='submit'>{newAd ? 'Подать' : 'Сохранить'}</Button>
+                        type='submit'
+                        disabled={ !this.allFieldsValid() }>
+                        {newAd ? 'Подать' : 'Сохранить'}
+                        </Button>
                 </Col>
               </Row>
             </form>
