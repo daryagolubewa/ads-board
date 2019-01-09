@@ -1,0 +1,45 @@
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #68717c;
+}
+
+.form-buttons {
+    display: block;
+}
+
+.form-header {
+    color: #1b2834;
+}
+
+.add-photo {
+    margin: 10px 10px 10px 0px;
+    color: #1360db;
+    border: 1px solid #1360db;
+}
+
+.add-photo:hover {
+    color: #1360db;
+    border: 1px solid #1360db;
+}
+
+.validation-shower {
+    padding: 20px 0px 0px 0px;
+}
+
+.validation-shower-ext > div {
+    display: none;
+}
+
+.ext-neutral .int-neutral {
+    display: block;
+}
+
+.ext-success .int-success {
+    display: block;
+    color: green;
+}
+
+.ext-error .int-error {
+    display: block;
+    color: red;
+}

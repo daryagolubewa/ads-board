@@ -4,8 +4,9 @@ import { Redirect } from 'react-router';
 import { PAGES } from './pages';
 import App from '../components/app/app';
 import HomePage from '../components/home-page/home-page';
-import AddPage from '../components/add-page/add-page';
-import EditPage from '../components/edit-page/edit-page';
+// import AddPage from '../components/add-page/add-page';
+// import EditPage from '../components/edit-page/edit-page';
+import FormsComponent from '../components/forms-component/forms-component';
 import Page404 from '../components/page404/page404';
 
 const WrappedApp = (Component, props) => (
@@ -22,11 +23,11 @@ export default () => (
     />
     <Route
       exact path={ PAGES.add.path }
-      render={ props => WrappedApp(AddPage, props) }
+      render={ props => WrappedApp(FormsComponent, { newAd: true, ...props }) }
     />
     <Route
       exact path={ PAGES.edit.path }
-      render={ props => WrappedApp(EditPage, props) }
+      render={ props => WrappedApp(FormsComponent, { newAd: false, ...props }) }
     />
     <Route
       exact path={ PAGES.page404.path }

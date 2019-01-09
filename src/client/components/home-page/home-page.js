@@ -19,7 +19,6 @@ const mapDispatchToProps = dispatch => ({
 
 class App extends Component {
   render() {
-    console.log(this.props.remAd);
     return (
       <div>
         <Grid>
