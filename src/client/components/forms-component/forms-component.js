@@ -21,35 +21,46 @@ class FormsComponent extends Component {
     headerValue: this.props.name ? this.props.name : '',
     textValue: this.props.text ? this.props.text : '',
     phoneValue: this.props.phone ? this.props.phone : '',
-    cityValue: this.props.city ? this.this.props.city : ''
+    cityValue: this.props.city ? this.props.city : ''
   };
 
   getHeaderValidation = () => {
-    const headerFieldlength = this.state.headerValue.length;
-    if (headerFieldlength > 140) return 'error';
-    if (headerFieldlength >= 1 && headerFieldlength <= 140) return 'success';
-    if (headerFieldlength === 0) return 'neutral';
+    const headerFieldLength = this.state.headerValue.length;
+    if (headerFieldLength > 140) return 'error';
+    if (headerFieldLength >= 1 && headerFieldLength <= 140) return 'success';
+    if (headerFieldLength === 0) return 'neutral';
   };
 
   getTextValidation = () => {
-    const textFieldlength = this.state.textValue.length;
-    if (textFieldlength > 300) return 'error';
-    if (textFieldlength >= 1 && textFieldlength <= 300) return 'success';
-    if (textFieldlength === 0) return 'neutral';
+    const textFieldLength = this.state.textValue.length;
+    if (textFieldLength > 300) return 'error';
+    if (textFieldLength >= 1 && textFieldLength <= 300) return 'success';
+    if (textFieldLength === 0) return 'neutral';
   };
 
   getPhoneValidation = () => {
-
+    const phoneNumber = this.state.phoneValue;
+    console.log(phoneNumber);
+    const phoneFieldLength = this.state.phoneValue.length;
+    if (phoneFieldLength === 0) return 'neutral';
+    const re = /^\+7[\(]\d{3}[\)]\d{3}[-]\d{2}[-]\d{2}$/;
+    const validNumber = re.test(phoneNumber);
+    console.log(validNumber);
+    if (validNumber) {
+      return 'success';
+    }
+    return 'error';
   };
 
   getCityValidation = () => {
-    const cityFieldlength = this.state.cityValue.length;
-    if (cityFieldlength > 0) return 'success';
+    const cityFieldLength = this.state.cityValue.length;
+    if (cityFieldLength > 0) return 'success';
   };
 
   render() {
     let name; let text; let phone; let city;
     const { addNewAd, editAd, newAd } = this.props;
+    console.log(this.state);
     return (
       <div className='row'>
         <Grid>
@@ -101,7 +112,7 @@ class FormsComponent extends Component {
                                  required/>
                   </FormGroup>
                 </Col>
-                <Col xs={6} md={5} className={'validation-shower-ext ext-' + this.getHeaderValidation()}>
+                <Col xs={6} md={5} className={`validation-shower-ext ext-${this.getHeaderValidation()}`}>
                   <div className='validation-shower int-neutral'>
                     <span className="glyphicon glyphicon-question-sign" aria-hidden="true"></span>Обязательное поле<br/>
                     Не более 140 символов
@@ -122,10 +133,10 @@ class FormsComponent extends Component {
                     <FormControl componentClass='textarea' type='textarea'
                                  inputRef={node => text = node}
                                  onChange={e => this.setState({ textValue: e.target.value })}
-                                 defaultValue={this.state.textValue} placeholder=''/>
+                                 defaultValue={newAd ? '' : this.state.textValue} placeholder=''/>
                   </FormGroup>
                 </Col>
-                <Col xs={6} md={5} className={'validation-shower-ext ext-' + this.getTextValidation()}>
+                <Col xs={6} md={5} className={`validation-shower-ext ext-${this.getTextValidation()}`}>
                   <div className='validation-shower int-neutral'>
                     <span className="glyphicon glyphicon-question-sign" aria-hidden="true"></span>Обязательное поле<br/>
                     Не более 300 символов
@@ -143,11 +154,13 @@ class FormsComponent extends Component {
                 <Col xs={6} md={5} >
                   <FormGroup>
                     <ControlLabel>Номер телефона</ControlLabel>
-                    <FormControl type='number' inputRef={node => phone = node} defaultValue={this.state.phoneValue}
-                                 placeholder='+7(___)___-__-__' required/>
+                    <FormControl type='text' inputRef={node => phone = node}
+                                 defaultValue={ newAd ? '' : this.state.phoneValue}
+                                 placeholder='+7(___)___-__-__' required
+                                 onChange={e => this.setState({ phoneValue: e.target.value })}/>
                   </FormGroup>
                 </Col>
-                <Col xs={6} md={5} className={'validation-shower-ext ext-' + this.getPhoneValidation()}>
+                <Col xs={6} md={5} className={`validation-shower-ext ext-${this.getPhoneValidation()}`}>
                   <div className='validation-shower int-neutral'>
                     <span className="glyphicon glyphicon-question-sign" aria-hidden="true"></span>Обязательное поле
                   </div>
@@ -155,7 +168,8 @@ class FormsComponent extends Component {
                     <span className="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>Заполнено
                   </div>
                   <div className='validation-shower int-error'>
-                    <span className="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>Заполните поле
+                    <span className="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>Неверный формат<br/>
+                    Номер должен соответствовать формату +7(ХХХ)ХХХ-ХХ-ХХ
                   </div>
                 </Col>
               </Row>
@@ -165,15 +179,16 @@ class FormsComponent extends Component {
                     <ControlLabel>Выбрать город</ControlLabel>
                     <FormControl componentClass='select' type='text' inputRef={node => city = node}
                                  placeholder=' '
+                                 defaultValue={ newAd ? '' : this.state.cityValue}
                                  onChange={e => this.setState({ cityValue: e.target.value })}>
                       <option value='select'> </option>
-                      <option value='select'>Москва</option>
-                      <option value='other'>Хабаровск</option>
-                      <option value='other'>Чебоксары</option>
+                      <option value='Москва'>Москва</option>
+                      <option value='Хабаровск'>Хабаровск</option>
+                      <option value='Чебоксары'>Чебоксары</option>
                     </FormControl>
                   </FormGroup>
                 </Col>
-                <Col xs={6} md={5} className={'validation-shower-ext ext-' + this.getCityValidation()}>
+                <Col xs={6} md={5} className={`validation-shower-ext ext-${this.getCityValidation()}`}>
                   <div className='validation-shower int-success'>
                     <span className="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>Заполнено
                   </div>
