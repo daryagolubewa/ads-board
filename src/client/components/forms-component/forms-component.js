@@ -60,7 +60,6 @@ class FormsComponent extends Component {
     const textValResult = this.getTextValidation();
     const nameValResult = this.getHeaderValidation();
     const phoneValResult = this.getPhoneValidation();
-    console.log('results', textValResult, nameValResult, phoneValResult);
     if (textValResult === 'success' && nameValResult === 'success' && phoneValResult === 'success') {
       return true;
     }
@@ -70,12 +69,9 @@ class FormsComponent extends Component {
   render() {
     let name; let text; let phone; let city;
     const { addNewAd, editAd, newAd } = this.props;
-    console.log(this.state);
-    console.log('lala,', this.allFieldsValid());
     return (
       <div className='row'>
         <Grid>
-          <Row>
             <Row>
               <Col xs={6} md={5}>
               <h3 className='form-header'>{newAd ? 'Подать объявление' : 'Редактировать объявление'}</h3>
@@ -192,8 +188,8 @@ class FormsComponent extends Component {
                                  placeholder=' '
                                  defaultValue={ newAd ? '' : this.state.cityValue}
                                  onChange={e => this.setState({ cityValue: e.target.value })}>
-                      <option value='select'> </option>
-                      <option value='Москва'>Москва</option>
+                      <option value='Москва'> Москва</option>
+                      <option value='Санкт-Петербург'>Санкт-Петербург</option>
                       <option value='Хабаровск'>Хабаровск</option>
                       <option value='Чебоксары'>Чебоксары</option>
                     </FormControl>
@@ -215,7 +211,6 @@ class FormsComponent extends Component {
                 </Col>
               </Row>
             </form>
-          </Row>
         </Grid>
       </div>
     );
