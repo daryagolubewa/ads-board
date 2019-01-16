@@ -7,4 +7,5 @@ CRUD-приложение, позволяющее добавить своё об
 :warning: Приложение работает под Линукс.  
 
 ![alt text](https://pp.userapi.com/c850120/v850120427/b7d19/F--1AkACkcU.jpg)
+![alt_text](https://pp.userapi.com/c851536/v851536819/912bc/AFkb66EJ61s.jpg)
 
